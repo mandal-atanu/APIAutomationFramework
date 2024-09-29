@@ -1,4 +1,4 @@
-package com.thetestingacademy.ex_22092024.GSON.Serialization;
+package com.thetestingacademy.pojos;
 
 public class bookingresponse {
 

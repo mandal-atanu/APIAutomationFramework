@@ -1,4 +1,4 @@
-package com.thetestingacademy.ex_22092024.GSON.Serialization;
+package com.thetestingacademy.pojos;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

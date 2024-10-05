@@ -1,8 +1,8 @@
 package com.thetestingacademy.tests.integrations;
 
-import com.google.gson.Gson;
 import com.thetestingacademy.base.BaseTest;
 import com.thetestingacademy.endpoints.APIConstraints;
+import com.thetestingacademy.listners.RetryAnalyzer;
 import com.thetestingacademy.pojos.booking;
 import com.thetestingacademy.pojos.bookingresponse;
 import com.thetestingacademy.utilitis.PropertyReader;
@@ -14,8 +14,8 @@ import org.testng.ITestContext;
 import org.testng.annotations.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-
-public class TCIntegrationFlow extends BaseTest {
+@Test(retryAnalyzer = RetryAnalyzer.class)
+public class TCIntegrationFlowRetryAnalyzer extends BaseTest {
 
     // Create A Booking, Create a Token
     // Get booking
@@ -23,7 +23,7 @@ public class TCIntegrationFlow extends BaseTest {
     // Delete the Booking
 
     @Test(groups = "integration", priority = 1)
-    @Owner("Atanu")
+    @Owner("Promode")
     @Description("TC#INT1 - Step 1. Verify that the Booking can be Created")
     public void testcreatebooking(ITestContext iTestContext){
 
@@ -41,13 +41,13 @@ public class TCIntegrationFlow extends BaseTest {
         assertThat(bookingresponse.getBooking().getFirstname()).isEqualTo("James");
         assertThat(bookingresponse.getBooking().getFirstname()).isEqualTo(PropertyReader.readkey("booking.post.fisrtname"));
 
-        iTestContext.setAttribute("bookingid", bookingresponse.getBookingid());
+        iTestContext.setAttribute("bookingid",bookingresponse.getBookingid());
 
     }
 
 
     @Test(groups = "integration", priority = 2)
-    @Owner("Atanu")
+    @Owner("Promode")
     @Description("TC#INT1 - Step 2. Verify that the Booking By ID")
     public void testVerifyBookingId(ITestContext iTestContext) {
 
@@ -71,7 +71,7 @@ public class TCIntegrationFlow extends BaseTest {
     }
 
     @Test(groups = "integration", priority = 3)
-    @Owner("Atanu")
+    @Owner("Promode")
     @Description("TC#INT1 - Step 3. Verify Updated Booking by ID")
     public void testUpdateBookingByID(ITestContext iTestContext){
 
@@ -102,7 +102,7 @@ public class TCIntegrationFlow extends BaseTest {
     }
 
     @Test(groups = "integration", priority = 4)
-    @Owner("Atanu")
+    @Owner("Promode")
     @Description("TC#INT1 - Step 4. Delete the Booking by ID")
     public void testDeleteBookingById(ITestContext iTestContext) {
 
@@ -116,7 +116,7 @@ public class TCIntegrationFlow extends BaseTest {
         requestSpecification.basePath(basePathDELETE).cookie("token", token);
         validatableResponse = RestAssured.given().spec(requestSpecification)
                 .when().delete().then().log().all();
-        validatableResponse.statusCode(201);
+        validatableResponse.statusCode(200);
 
     }
 
